@@ -9,6 +9,7 @@ class TestPackageConan(ConanFile):
 
     def requirements(self):
         self.requires(self.tested_reference_str)
+        self.requires("boost/1.84.0")
 
     def layout(self):
         cmake_layout(self)
@@ -19,5 +20,4 @@ class TestPackageConan(ConanFile):
         cmake.build()
 
     def test(self):
-        if not self.conf.get("tools.build:skip_test", default=False):
-            self.run(os.path.join(self.cpp.build.bindir, "test_package"), env="conanrun")
+        self.run(os.path.join(self.cpp.build.bindir, "test_package"), env="conanrun")

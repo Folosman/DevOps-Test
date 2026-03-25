@@ -4,7 +4,7 @@ project(pdkdf2 VERSION 1.0.0 LANGUAGES CXX)
 option(BUILD_SHARED_LIBS "Build shared libs" OFF)
 
 find_package(OpenSSL REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED COMPONENTS program_options)
 
 add_library(pdkdf2
     src/args_parser.cxx
@@ -22,10 +22,10 @@ target_include_directories(pdkdf2
 target_compile_features(pdkdf2 PUBLIC cxx_std_17)
 
 target_link_libraries(pdkdf2
-    PRIVATE
+    PUBLIC
+        Boost::program_options
         OpenSSL::SSL
         OpenSSL::Crypto
-        Boost::boost
 )
 
 include(GNUInstallDirs)
